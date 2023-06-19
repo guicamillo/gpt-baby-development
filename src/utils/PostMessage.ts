@@ -17,11 +17,14 @@ class PostMessage {
         }
     }
 
-    async post(message: string) {
+    async post(...messages: string[]) {
         switch (this.#channel) {
             case "Telegram":
-                return new TelegramBot(this.#apiKey).sendMessage(this.#chatID, message, {
-                    parse_mode: "Markdown",
+                const Bot = new TelegramBot(this.#apiKey);
+                messages.forEach((message) => {
+                    Bot.sendMessage(this.#chatID, message, {
+                        parse_mode: "Markdown",
+                    });
                 });
         }
     }

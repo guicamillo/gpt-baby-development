@@ -13,22 +13,25 @@ As any PoC, there are lots and lots of rough edges, so use it on your own discre
 
 ### Supported ENV Variables:
 
--   `LANGUAGE`: `enum('enUS' | 'enGB' | 'ptBR')`
+-   `SELECTED_LANGUAGE_LOCALE`: `string`
 
     -   The language you will receive your updates in.
-    -   PS: It directly affects what we will accept on `BABY_PRONOUNS`
+    -   Expected format $lang_$LOCALE, ie: pt_BR, en_US
     -   **Disclaimer**: We _"ask"_ chatGPT API to output content in this language and, on my testing it did it right 100% of the time, but your mileage may vary.
 
 -   `BABY_NAME`: `string`;
 
     -   Stores your baby's name, duh.
 
--   `BABY_PRONOUNS`: `enum()`, changes depending on `LANGUAGE`.
+-   `BABY_GENDER`: `enum('FEMALE', 'MALE', 'NEUTRAL')` -- defaults to neutral
 
-    -   What pronouns should chatGPT use when referring to your baby. The accepted inputs change based on the currently selected language:
+    -   The gender that we send over to OpenAI to get the completions in.
 
-        -   `enCA` | `enUS` | `enGB` : one of `'she/her' | 'he/him' | 'they/them'`
-        -   `ptBR` : one of `'ela/dela' | 'ele/dele'`
+-   `BABY_PRONOUNS`: `string`
+
+    -   The preferred pronouns to refer to your baby. We don't do any validations here, for a bunch of reasons:
+        -   I'm not the one to say which pronouns are the valid ones.
+        -   Even I where, this would get complicated too fast, with different languages and all of that.
 
 -   `BABY_BIRTHDAY`: `string(ish)`
 
