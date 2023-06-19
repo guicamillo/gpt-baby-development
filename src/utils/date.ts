@@ -1,13 +1,6 @@
 import { getEnvConfig } from "../getConfig";
 
-const Today = new Date("2023-06-12");
-
-function getMonthsBetween(startDate: Date, endDate: Date) {
-    const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
-    const monthsDifference = endDate.getMonth() - startDate.getMonth();
-    return yearsDifference * 12 + monthsDifference;
-}
-
+const Today = new Date();
 const { BASE_DATE } = getEnvConfig();
 
 export function isBirthday() {
@@ -19,12 +12,13 @@ export function isMonthsary() {
 }
 
 export function isWeekIncrementDay() {
-    console.log(BASE_DATE.getDay(), Today.getDay());
     return BASE_DATE.getDay() === Today.getDay();
 }
 
 export function getAgeInMonths() {
-    return getMonthsBetween(BASE_DATE, Today);
+    const yearsDifference = Today.getFullYear() - BASE_DATE.getFullYear();
+    const monthsDifference = Today.getMonth() - BASE_DATE.getMonth();
+    return yearsDifference * 12 + monthsDifference;
 }
 
 export function getAgeInYears() {
@@ -33,9 +27,15 @@ export function getAgeInYears() {
 
 export function getAgeInWeeks() {
     // We assume that DUE_DATE = 40weeks, then we calculate backwards from it
-    console.log({ getWeeksUntilDueDate: getWeeksUntilDueDate() });
-    return 40 - getWeeksUntilDueDate();
+    const weeksUntilDueDate = getWeeksUntilDueDate();
+
+    // However, the due date normally can go past 40 weeks (up to 42 AFAIK, so we allow it to keep going further)
+    if (weeksUntilDueDate < 0) {
+        return 40 + Math.abs(weeksUntilDueDate);
+    }
+    return 40 - weeksUntilDueDate;
 }
+
 export function getWeeksUntilDueDate() {
-    return Math.abs(Math.round((BASE_DATE.getTime() - Today.getTime()) / 1000 / (60 * 60 * 24 * 7)));
+    return Math.round((BASE_DATE.getTime() - Today.getTime()) / 1000 / (60 * 60 * 24 * 7));
 }

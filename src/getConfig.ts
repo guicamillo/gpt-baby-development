@@ -13,6 +13,7 @@ const BaseEnvSchema = z.object({
     BABY_GENDER: z.enum(["FEMALE", "MALE", "NEUTRAL"]).default("NEUTRAL"),
     BASE_DATE: z.coerce.date(),
     BASE_DATE_TYPE: z.enum(["DUE_DATE", "BIRTHDAY"]),
+    DRY_RUN: z.coerce.boolean().optional().default(false),
 });
 
 const TelegramConfigSchema = z.object({

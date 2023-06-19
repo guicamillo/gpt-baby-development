@@ -15,7 +15,7 @@ export async function getWeeklyDevelopmentMilestones() {
                 ]),
                 {
                     role: "user",
-                    content: `We're expecting a baby and we're currently ${weeks} pregnant. What are the major development milestones that happen at week ${weeks}`,
+                    content: `We're expecting a baby and we're currently ${weeks} pregnant. What are the major development milestones that happen at week ${weeks}?`,
                 },
             ],
         })

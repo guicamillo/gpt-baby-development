@@ -18,6 +18,12 @@ class PostMessage {
     }
 
     async post(...messages: string[]) {
+        if (getEnvConfig().DRY_RUN) {
+            console.info("App is running on dry-run mode... outputting content to the console instead");
+            console.log(messages);
+            return;
+        }
+
         switch (this.#channel) {
             case "Telegram":
                 const Bot = new TelegramBot(this.#apiKey);

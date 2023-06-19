@@ -29,11 +29,12 @@ import { getEnvConfig } from "./getConfig";
                  * After that, the parent needs to change their BASE_DATE_TYPE to 'BIRTHDAY' instead.
                  */
                 if (ageInWeeks > 42) {
+                    messages.push(`It seems like that you folks are into the week number ${ageInWeeks} of pregnancy.`);
                     messages.push(
-                        "It's likely that you need to update your .env file to have BASE_DATE_TYPE set to BIRTHDAY instead."
+                        "We hope everything is already with both the mom and the baby, but it's likely that you need to update your .env file to have BASE_DATE_TYPE='BIRTHDAY' instead."
                     );
                     messages.push(
-                        `While doing so, make sure that your BASE_DATE env variable also reflect ${env.BABY_NAME}'s birthday`
+                        `While doing so, make sure that your BASE_DATE env variable also reflect ${env.BABY_NAME}'s actual birthday`
                     );
                 }
 
@@ -54,12 +55,10 @@ import { getEnvConfig } from "./getConfig";
         }
 
         if (messages.length > 0) {
-            false && PostMessage.post(...messages);
-            console.log(...messages);
+            PostMessage.post(...messages);
         }
     } catch (err) {
         const msg = `Something went wrong: ${JSON.stringify(err)}`;
-        false && PostMessage.post(msg);
-        console.error(msg);
+        PostMessage.post(msg);
     }
 })();
