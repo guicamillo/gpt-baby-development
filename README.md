@@ -1,8 +1,26 @@
 # GPT-BABY-DEVELOPMENT
 
-This is a silly PoC that connects to OpenAI's ChatGPT API and fetches baby development milestones from it, so **IT GOES WITHOUT SAYING** that you should take it with a grain of salt. As each baby develops differently, baby development milestones are well, just milestones.
+This is a simple proof of concept that connects to OpenAI's API and fetches baby development milestones from it, so **IT GOES WITHOUT SAYING** that you should take it with a grain of salt. As each baby develops differently, baby development milestones are well, just milestones.
 
-As any PoC, there are lots and lots of rough edges, so use it on your own discretion.
+This was an idea that my wife threw in out of the blue and said as a joke "you should build it" and here we are. It's been quite fun developing it though :D
+
+## Disclaimers
+
+-   This is only a PoC. As any PoC, there are lots and lots of rough edges, so use it on your own discretion.
+-   I'm not a doctor, and neither OpenAI's AI is. The messages you get from it should be somewhat accurate, but don't trust them blindly.
+
+## How it works:
+
+```mermaid
+flowchart TD
+    Start(Job Scheduler) -->Run(Runs this app)
+    Run --> Type[Check Base date Type]
+    Type --> | birthday | bday(isMonthsary or isBirthday?)
+    Type --> | due_date | ddate(isWeekUpdateDay)
+    bday -->| yes | OpenAI(Fetch updates from OpenAI)
+    ddate -->| yes | OpenAI
+    OpenAI --> POST(Post to your preferred channel)
+```
 
 ## Getting Started
 
@@ -66,3 +84,10 @@ As any PoC, there are lots and lots of rough edges, so use it on your own discre
 
     -   The API key we should use when interacting with OpenAI
     -   To create a new key, use the following link: https://platform.openai.com/account/api-keys
+
+### Recommended setup
+
+-   Once you've got the system configured and all of the environment variables defined as above, create a new entry on your favourite job scheduler to have it run this app on a daily basis:
+-   ie: if using crontab, you'd add this line to get updates at 10am:
+
+    -   `0 10 * * * cd path/to/this/repository  && yarn run app >/dev/null 2>&1`
