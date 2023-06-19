@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const BaseEnvSchema = z.object({
     PUBLISH_UPDATES_TO: z.enum(["Telegram"]),
-    GPT_API_KEY: z.string().nonempty(),
+    OPENAI_API_KEY: z.string().nonempty(),
     SELECTED_LANGUAGE_LOCALE: z.string({
         description:
             "The language/locale in which you expect to get your responses in. expected format $lang_$LOCALE, ie: pt_BR, en_US",

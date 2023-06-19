@@ -2,7 +2,7 @@ import { OpenAIApi, Configuration, ChatCompletionRequestMessage } from "openai";
 import { getEnvConfig } from "../getConfig";
 
 const configuration = new Configuration({
-    apiKey: getEnvConfig().GPT_API_KEY,
+    apiKey: getEnvConfig().OPENAI_API_KEY,
 });
 
 export const openai = new OpenAIApi(configuration);

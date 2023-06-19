@@ -33,7 +33,11 @@ As any PoC, there are lots and lots of rough edges, so use it on your own discre
         -   I'm not the one to say which pronouns are the valid ones.
         -   Even I where, this would get complicated too fast, with different languages and all of that.
 
--   `BABY_BIRTHDAY`: `string(ish)`
+-   `BASE_DATE_TYPE`: `enum('DUE_DATE' | 'BIRTHDAY')`
+    -   Tells the system what to consider `BASE_DATE` as.
+    -   If set to `DUE_DATE`, we will push updates **every week**, on the weekday that your baby-to-be becomes one week older.
+    -   If set to `BIRTHDAY`, we will push updates **once a month**, on their monthsary day.
+-   `BASE_DATE`: `string(ish)`
 
     -   Holds the baby birthday following the format `YYYY-MM-DD`.
     -   PS: It _might_ work with other formats as well, but I have not tested it (nor I will.)
@@ -58,7 +62,7 @@ As any PoC, there are lots and lots of rough edges, so use it on your own discre
         -   On your browser, open a new url with `https://api.telegram.org/bot<TELEGRAM_BOT_API_KEY>/getUpdates`
         -   You will then find your group id on the payload. The field you're looking for is named as `chat.id`.
 
--   `GPT_API_KEY`: `string`
+-   `OPENAI_API_KEY`: `string`
 
     -   The API key we should use when interacting with OpenAI
     -   To create a new key, use the following link: https://platform.openai.com/account/api-keys
