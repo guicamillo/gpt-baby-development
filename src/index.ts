@@ -1,11 +1,11 @@
 import { getMessage } from "./GPT/get-message";
-import { getEnv } from "./getConfig";
-import { getHeading } from "./i18n/messages";
+import { getEnvConfig } from "./getConfig";
+import { getGreeting } from "./i18n/greetings";
 
 import { getMonthsBetween } from "./utils/date";
-import * as Telegram from "./utils/postToTelegram";
+import PostMessage from "./utils/PostMessage";
 
-const env = getEnv();
+const env = getEnvConfig();
 
 const Today = new Date();
 const { BABY_BIRTHDAY: birthday } = env;
@@ -14,13 +14,12 @@ const BabyCurrentAgeInMonths = getMonthsBetween(birthday, Today);
 
 (async function () {
     try {
-        const GPTResponse = await getMessage(BabyCurrentAgeInMonths);
-        const FormattedMessage = `${getHeading(BabyCurrentAgeInMonths)}
-        
-        ${GPTResponse.map((choice) => choice.message?.content).join("\n")}`;
-
-        Telegram.SendMessage(FormattedMessage);
+        const ChatGPTResponse = await getMessage(BabyCurrentAgeInMonths);
+        const FormattedMessage = [getGreeting(BabyCurrentAgeInMonths), ChatGPTResponse].join("\n");
+        PostMessage.post(FormattedMessage);
     } catch (err) {
-        Telegram.SendMessage(`Something went wrong: ${JSON.stringify(err)}`);
+        const msg = `Something went wrong: ${JSON.stringify(err)}`;
+        PostMessage.post(msg);
+        console.error(msg);
     }
 })();

@@ -1,8 +1,8 @@
 import { OpenAIApi, Configuration } from "openai";
-import { getEnv } from "../getConfig";
+import { getEnvConfig } from "../getConfig";
 
 const configuration = new Configuration({
-    apiKey: getEnv().GPT_API_KEY,
+    apiKey: getEnvConfig().GPT_API_KEY,
 });
 
 export const openai = new OpenAIApi(configuration);
